@@ -2,7 +2,7 @@
 """ Main app """
 
 from os import getenv
-from flask import Flask
+from flask import Flask, jsonify, make_response
 from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
@@ -22,7 +22,7 @@ def close_storage(exc):
 @app.errorhandler(404)
 def page_not_found(e):
     """404 page not found"""
-    return {"error": "Not found"}, 404
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
@@ -31,4 +31,4 @@ if __name__ == "__main__":
     port = int(getenv('HBNB_API_PORT', 5000))
 
     # run the app
-    app.run(host=host, port=port, threaded=True)
+    app.run(host=host, port=port, debug=1)
