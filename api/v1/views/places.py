@@ -11,15 +11,17 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['GET'],
+                 strict_slashes=False)
 def get_places_by_city(city_id):
     """
-    Retrieves the list of all Place objects of a City: GET /api/v1/cities/<city_id>/places
+    Retrieves the list of all Place objects of a City:
+    GET /api/v1/cities/<city_id>/places
     If the city_id is not linked to any City object, raise a 404 error
     """
     city = storage.get(City, city_id)
     if not city:
-         abort(404)
+        abort(404)
 
     places = [place.to_dict() for place in city.places]
     return jsonify(places)
@@ -38,7 +40,8 @@ def get_places(place_id):
         abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_place(place_id):
     """
     Deletes a Place object: DELETE /api/v1/places/<place_id>
@@ -54,16 +57,21 @@ def delete_place(place_id):
         abort(404)
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'], strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['POST'],
+                 strict_slashes=False)
 def create_place(city_id):
     """
     Creates a Place: POST /api/v1/cities/<city_id>/places
-    You must use request.get_json from Flask to transform the HTTP request to a dictionary
+    You must use request.get_json from Flask to transform the HTTP
+    request to a dictionary
     If the city_id is not linked to any City object, raise a 404 error
-    If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
-    If the dictionary doesn’t contain the key user_id, raise a 400 error with the message Missing user_id
+    If the HTTP request body is not valid JSON, raise a 400 error with
+    the message Not a JSON
+    If the dictionary doesn’t contain the key user_id, raise a 400 error
+    with the message Missing user_id
     If the user_id is not linked to any User object, raise a 404 error
-    If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
+    If the dictionary doesn’t contain the key name, raise a 400 error with
+    the message Missing name
     Returns the new Place with the status code 201
     """
     city = storage.get(City, city_id)
@@ -78,7 +86,7 @@ def create_place(city_id):
         abort(400, description='Missing user_id')
     if 'name' not in kwargs_data:
         abort(400, description='Missing name')
-    
+
     user = storage.get(User, kwargs_data['user_id'])
     if not user:
         abort(404)
@@ -94,8 +102,10 @@ def update_place(place_id):
     """
     Updates a Place object: PUT /api/v1/places/<place_id>
     If the place_id is not linked to any Place object, raise a 404 error
-    You must use request.get_json from Flask to transform the HTTP request to a dictionary
-    If the HTTP request body is not valid JSON, raise a 400 error with the message Not a JSON
+    You must use request.get_json from Flask to transform the
+    HTTP request to a dictionary
+    If the HTTP request body is not valid JSON, raise a 400 error
+    with the message Not a JSON
     Update the Place object with all key-value pairs of the dictionary
     Ignore keys: id, user_id, city_id, created_at and updated_at
     Returns the Place object with the status code 200
@@ -148,6 +158,7 @@ def search_places():
 
     if amenities:
         amenities_set = set(amenities)
-        places = [place for place in places if amenities_set.issubset(set(place.amenity_ids))]
+        places = [place for place in places if amenities_set.issubset(
+            set(place.amenity_ids))]
         return jsonify([place.to_dict() for place in places])
     return jsonify([place.to_dict() for place in places])

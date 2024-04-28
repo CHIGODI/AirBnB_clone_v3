@@ -12,7 +12,7 @@ from api.v1.views import app_views
 @app_views.route('/places/<place_id>/amenities', methods=['GET'],
                  strict_slashes=False)
 def get_place_amenities(place_id):
-    """ 
+    """
     returns a list of place amenities of place with id
     <place_id>
     """
@@ -20,7 +20,7 @@ def get_place_amenities(place_id):
     if not place:
         abort(404)
     else:
-        amenities = [amenity.to_dict() for amenity in  place.amenities()]
+        amenities = [amenity.to_dict() for amenity in place.amenities()]
         return jsonify(amenities)
 
 
@@ -40,7 +40,7 @@ def delete_place_amenities(place_id, amenity_id):
                 amenity = amenity
                 storage.delete(amenity)
                 storage.save()
-                return make_response(jsonify({}), 201) 
+                return make_response(jsonify({}), 201)
         abort(404)
 
 

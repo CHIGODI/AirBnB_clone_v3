@@ -64,7 +64,7 @@ def update_amenity(amenity_id):
         if request.is_json:
             kwargs_data = request.get_json()
             for key, val in kwargs_data.items():
-               setattr(amenity, key, val)
+                setattr(amenity, key, val)
             storage.save()
             return make_response(jsonify(amenity.to_dict()), 200)
-        abort(400, description='Not a JSON')   
+        abort(400, description='Not a JSON')

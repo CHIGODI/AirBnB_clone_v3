@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """
-retrieves list of all state objects, the state object, deletes creates and updates a state object
+retrieves list of all state objects, the state object, deletes
+creates and updates a state object
 """
 from flask import jsonify
 from models.state import State
@@ -32,7 +33,8 @@ def get_state(state_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_state(state_id):
     """
     Deletes a State object: DELETE /api/v1/states/<state_id>
@@ -52,10 +54,13 @@ def delete_state(state_id):
 def create_state():
     """
     Creates a State: POST /api/v1/states
-    You must use request.get_json from Flask to transform the HTTP body request to a dictionary
-    If the HTTP body request is not valid JSON, raise a 400 error with the message Not a JSON
-    If the dictionary doesn’t contain the key name, raise a 400 error with the message Missing name
-    Returns the new State with the status code 201  
+    You must use request.get_json from Flask to transform the HTTP
+    body request to a dictionary
+    If the HTTP body request is not valid JSON, raise a 400 error with
+    the message Not a JSON
+    If the dictionary doesn’t contain the key name, raise a 400 error
+    with the message Missing name
+    Returns the new State with the status code 201
     """
     if request.is_json:
         kwargs = request.get_json()
@@ -73,9 +78,12 @@ def create_state():
 def update_state(state_id):
     """
     Updates a State object: PUT /api/v1/states/<state_id>
-    If the state_id is not linked to any State object, raise a 404 error
-    You must use request.get_json from Flask to transform the HTTP body request to a dictionary
-    If the HTTP body request is not valid JSON, raise a 400 error with the message Not a JSON
+    If the state_id is not linked to any State object, raise
+    a 404 error
+    You must use request.get_json from Flask to transform the HTTP
+    body request to a dictionary
+    If the HTTP body request is not valid JSON, raise a 400 error with
+    the message Not a JSON
     Update the State object with all key-value pairs of the dictionary.
     Ignore keys: id, created_at and updated_at
     Returns the State object with the status code 200
