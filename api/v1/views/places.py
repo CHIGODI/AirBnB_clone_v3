@@ -11,8 +11,7 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/cities/<city_id>/places', methods=['GET'],
-                 strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['GET'])
 def get_places_by_city(city_id):
     """
     Retrieves the list of all Place objects of a City:
@@ -27,7 +26,7 @@ def get_places_by_city(city_id):
     return jsonify(places)
 
 
-@app_views.route('/places/<place_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['GET'])
 def get_places(place_id):
     """
     Retrieves a Place object. : GET /api/v1/places/<place_id>
@@ -40,8 +39,7 @@ def get_places(place_id):
         abort(404)
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'],
-                 strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['DELETE'])
 def delete_place(place_id):
     """
     Deletes a Place object: DELETE /api/v1/places/<place_id>
@@ -57,8 +55,7 @@ def delete_place(place_id):
         abort(404)
 
 
-@app_views.route('/cities/<city_id>/places', methods=['POST'],
-                 strict_slashes=False)
+@app_views.route('/cities/<city_id>/places', methods=['POST'])
 def create_place(city_id):
     """
     Creates a Place: POST /api/v1/cities/<city_id>/places
@@ -97,7 +94,7 @@ def create_place(city_id):
     return jsonify(place.to_dict()), 201
 
 
-@app_views.route('/places/<place_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['PUT'])
 def update_place(place_id):
     """
     Updates a Place object: PUT /api/v1/places/<place_id>
@@ -126,7 +123,7 @@ def update_place(place_id):
         abort(404)
 
 
-@app_views.route('/places_search', methods=['POST'], strict_slashes=False)
+@app_views.route('/places_search', methods=['POST'])
 def search_places():
     """
     Search for places based on JSON data in request body

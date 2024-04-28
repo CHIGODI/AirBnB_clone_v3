@@ -10,7 +10,7 @@ from api.v1.views import app_views
 from flask import request, abort
 
 
-@app_views.route('/states', methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'])
 def get_all_states():
     """
     Retrieves the list of all State objects: GET /api/v1/states
@@ -20,7 +20,7 @@ def get_all_states():
     return jsonify(state_list)
 
 
-@app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['GET'])
 def get_state(state_id):
     """
     Retrieves a State object: GET /api/v1/states/<state_id>
@@ -33,8 +33,7 @@ def get_state(state_id):
         abort(404)
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'],
-                 strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
     """
     Deletes a State object: DELETE /api/v1/states/<state_id>
@@ -50,7 +49,7 @@ def delete_state(state_id):
         abort(404)
 
 
-@app_views.route('/states', methods=['POST'], strict_slashes=False)
+@app_views.route('/states', methods=['POST'])
 def create_state():
     """
     Creates a State: POST /api/v1/states
@@ -74,7 +73,7 @@ def create_state():
     abort(400, 'Not a JSON')
 
 
-@app_views.route('/states/<state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/states/<state_id>', methods=['PUT'])
 def update_state(state_id):
     """
     Updates a State object: PUT /api/v1/states/<state_id>
