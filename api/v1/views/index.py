@@ -10,7 +10,7 @@ def status():
     return jsonify({"status": "OK"})
 
 
-@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+@app_views.route('/stats', methods=['GET'])
 def stats():
     """ Returns a JSON of the number of each object by type """
     from models import storage
