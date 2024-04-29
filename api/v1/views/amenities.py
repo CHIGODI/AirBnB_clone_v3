@@ -38,7 +38,7 @@ def delete_amenity(amenity_id):
 
 
 @app_views.route('/amenities', methods=['POST'])
-def add_amenity():
+def create_amenity():
     """ Adds an amenity """
     if request.is_json:
         kwargs_data = request.get_json()

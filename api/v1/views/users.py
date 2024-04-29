@@ -38,7 +38,7 @@ def delete_user(user_id):
 
 
 @app_views.route('/users', methods=['POST'])
-def add_user():
+def create_user():
     """ Adds user """
     if request.is_json:
         kwargs_data = request.get_json()

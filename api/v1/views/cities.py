@@ -22,7 +22,7 @@ def get_state_cities(state_id):
 
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'])
-def add_city(state_id):
+def create_city(state_id):
     """ Adds city to state """
     state = storage.get(State, state_id)
     if not state:
