@@ -1,13 +1,13 @@
 #!/usr/bin/python3
 """ This module returns status of API """
 from api.v1.views import app_views
-from flask import jsonify
+from flask import jsonify, make_response
 
 
 @app_views.route('/status', methods=['GET'], strict_slashes=False)
 def status():
     """ Returns a JSON """
-    return jsonify({"status": "OK"})
+    return make_response(jsonify({"status": "OK"}), 200)
 
 
 @app_views.route('/stats', methods=['GET'])
