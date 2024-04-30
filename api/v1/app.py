@@ -15,7 +15,7 @@ CORS(app, origins='*')
 
 @app.teardown_appcontext
 def close_storage(exc):
-    """Close the storage"""
+    """Reload the storage"""
     storage.close()
 
 

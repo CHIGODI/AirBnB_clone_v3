@@ -15,6 +15,7 @@ from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+import hashlib
 
 classes = {"Amenity": Amenity, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -60,6 +61,8 @@ class DBStorage:
 
     def new(self, obj):
         """add the object to the current database session"""
+        if 'password' in obj.to_dict() and getenv('HBNB_TYPE_STORAGE') == 'db':
+            obj.password = hashlib
         self.__session.add(obj)
 
     def save(self):

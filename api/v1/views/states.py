@@ -3,7 +3,7 @@
 retrieves list of all state objects, the state object, deletes
 creates and updates a state object
 """
-from flask import jsonify
+from flask import jsonify, make_response
 from models.state import State
 from models import storage
 from api.v1.views import app_views
@@ -44,7 +44,7 @@ def delete_state(state_id):
     if state:
         storage.delete(state)
         storage.save()
-        return jsonify({}), 200
+        return make_response(jsonify({}), 200)
     else:
         abort(404)
 
@@ -65,7 +65,7 @@ def create_state():
         kwargs = request.get_json()
 
         if 'name' not in kwargs:
-            abort(400, 'Missing Name')
+            abort(400, description='Missing Name')
 
         state = State(**kwargs)
         state.save()
@@ -99,5 +99,5 @@ def update_state(state_id):
                 if key not in ignore_keys:
                     setattr(state, key, value)
             state.save()
-            return jsonify(state.to_dict()), 200
+            return make_response(jsonify(state.to_dict()), 200)
         abort(400, 'Not a JSON')
