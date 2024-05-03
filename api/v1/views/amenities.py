@@ -68,6 +68,6 @@ def update_amenity(amenity_id):
             for key, val in kwargs_data.items():
                 if key not in ignore:
                     setattr(amenity, key, val)
-            storage.save()
+            amenity.save()
             return make_response(jsonify(amenity.to_dict()), 200)
         abort(400, description='Not a JSON')
