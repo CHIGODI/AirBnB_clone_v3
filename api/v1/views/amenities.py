@@ -50,7 +50,7 @@ def create_amenity():
             abort(400, description="Missing name")
         amenity = Amenity(**kwargs_data)
         amenity.save()
-        return make_response(jsonify(amenity.to_dict()), 200)
+        return make_response(jsonify(amenity.to_dict()), 201)
     abort(400)
 
 
