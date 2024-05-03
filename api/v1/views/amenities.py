@@ -64,8 +64,10 @@ def update_amenity(amenity_id):
     else:
         if request.is_json:
             kwargs_data = request.get_json()
+            ignore = ['id', 'created_at', 'updated_at']
             for key, val in kwargs_data.items():
-                setattr(amenity, key, val)
+                if key not in ignore:
+                    setattr(amenity, key, val)
             storage.save()
             return make_response(jsonify(amenity.to_dict()), 200)
         abort(400, description='Not a JSON')
