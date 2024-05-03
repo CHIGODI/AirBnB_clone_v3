@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-""" Main app """
+""" This module contains the code of the main Flask app """
 
 from os import getenv
 from flask import Flask, jsonify, make_response
@@ -10,7 +10,7 @@ from api.v1.views import app_views
 app = Flask(__name__)
 app.register_blueprint(app_views)
 
-CORS(app, origins='*')
+cors = CORS(app, resources={r"/api/*": {"origins": "0.0.0.0"}})
 
 
 @app.teardown_appcontext
