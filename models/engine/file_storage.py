@@ -11,7 +11,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.user import User
-import hashlib
+from models import storage
 
 classes = {"Amenity": Amenity, "BaseModel": BaseModel, "City": City,
            "Place": Place, "Review": Review, "State": State, "User": User}
@@ -36,16 +36,22 @@ class FileStorage:
         return self.__objects
 
     def get(self, cls, id):
-        """retrieve one object"""
-        key = f'{cls.__name__}.{id}'
-        if key in self.__objects:
-            return self.__objects[key]
+        """
+        Returns the object based on the class name and its ID, or
+        None if not found
+        """
+        if cls not in classes.values():
+            return None
+
+        all_cls = storage.all(cls)
+        for value in all_cls.values():
+            if (value.id == id):
+                return value
+
         return None
 
     def new(self, obj):
         """sets in __objects the obj with key <obj class name>.id"""
-        if 'password' in obj.__dict__:
-            obj.password = hashlib
         if obj is not None:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
@@ -80,7 +86,16 @@ class FileStorage:
         self.reload()
 
     def count(self, cls=None):
-        """count the number of objects in storage"""
-        if cls:
-            return len(self.all(cls))
-        return len(self.all())
+        """
+        count the number of objects in storage
+        """
+        all_class = classes.values()
+
+        if not cls:
+            count = 0
+            for clas in all_class:
+                count += len(storage.all(clas).values())
+        else:
+            count = len(storage.all(cls).values())
+
+        return count
