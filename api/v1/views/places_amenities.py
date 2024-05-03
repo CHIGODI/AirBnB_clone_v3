@@ -9,7 +9,8 @@ from models import storage
 from api.v1.views import app_views
 
 
-@app_views.route('/places/<place_id>/amenities', methods=['GET'])
+@app_views.route('/places/<place_id>/amenities', methods=['GET'],
+                 strict_slashes=False)
 def get_place_amenities(place_id):
     """
     returns a list of place amenities of place with id
@@ -23,7 +24,8 @@ def get_place_amenities(place_id):
         return jsonify(amenities)
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['GET'])
+@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['GET'],
+                 strict_slashes=False)
 def delete_place_amenities(place_id, amenity_id):
     """ deletes amenity to a place """
     place = storage.get(Place, place_id)
@@ -42,7 +44,8 @@ def delete_place_amenities(place_id, amenity_id):
         abort(404)
 
 
-@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'])
+@app_views.route('/places/<place_id>/amenities/<amenity_id>', methods=['POST'],
+                 strict_slashes=False)
 def link_amenity_to_place(place_id, amenity_id):
     """ adds amenity to a place """
     place = storage.get(Place, place_id)
